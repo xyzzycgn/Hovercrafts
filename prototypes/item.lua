@@ -1,3 +1,5 @@
+local item_sounds = require("__base__.prototypes.item_sounds")
+
 data:extend({
   {
     type = "item-with-entity-data",
@@ -6,6 +8,9 @@ data:extend({
     icon_size = 64,
     subgroup = subgroup_hovercrafts,
     order = "b[personal-transport]-c[hovercraft]",
+    inventory_move_sound = item_sounds.vehicle_inventory_move,
+    pick_sound = item_sounds.vehicle_inventory_pickup,
+    drop_sound = item_sounds.vehicle_inventory_move,
     place_result = "hovercraft",
     stack_size = 1
   },
@@ -35,6 +40,9 @@ if missile_hovercraft_activated then
       icon_size = 64,
       subgroup = subgroup_hovercrafts,
       order = "b[personal-transport]-d[missile-hovercraft]",
+      inventory_move_sound = item_sounds.vehicle_inventory_move,
+      pick_sound = item_sounds.vehicle_inventory_pickup,
+      drop_sound = item_sounds.vehicle_inventory_move,  
       place_result = "missile-hovercraft",
       stack_size = 1
     },
@@ -68,6 +76,9 @@ if electric_hovercraft_activated then
       icon_size = 64,
       subgroup = subgroup_hovercrafts,
       order = "b[personal-transport]-e[electric-hovercraft]",
+      inventory_move_sound = item_sounds.vehicle_inventory_move,
+      pick_sound = item_sounds.vehicle_inventory_pickup,
+      drop_sound = item_sounds.vehicle_inventory_move,  
       place_result = "electric-hovercraft",
       stack_size = 1
     },
@@ -97,6 +108,9 @@ if laser_hovercraft_activated then
       icon_size = 64,
       subgroup = subgroup_hovercrafts,
       order = "d[personal-transport]-d",
+      inventory_move_sound = item_sounds.vehicle_inventory_move,
+      pick_sound = item_sounds.vehicle_inventory_pickup,
+      drop_sound = item_sounds.vehicle_inventory_move,  
       place_result = "laser-hovercraft",
       stack_size = 1
     },
@@ -113,34 +127,37 @@ if laser_hovercraft_activated then
       },
       results = {{type="item", name="laser-hovercraft", amount=1}}
     },
-    {
-      type = "item",
-      name = "lcraft-charger",
-      icon = HCGRAPHICS .. "icons/equipment_lcraft_charger_icon.png",
-      icon_size = 64,
-      flags = {},
-      placed_as_equipment_result = "lcraft-charger",
-      subgroup = "equipment",
-      order = "e[robotics]-a[personal-roboport-equipment]",
-      stack_size = 20
-    },
-    {
-      type = "recipe",
-      name = "lcraft-charger",
-      enabled = false,
-      energy_required = 10,
-      ingredients = {
-        {type="item", name="processing-unit", amount=25},
-        {type="item", name="energy-shield-mk2-equipment", amount=5},
-        {type="item", name="ehvt-equipment", amount=2}
-      },
-      results = {{type="item", name="lcraft-charger", amount=1}}
-    },
   })
-
-  if mods["SchallTransportGroup"] then
-    data.raw["item"]["lcraft-charger"].subgroup = "vehicle-equipment"
-    data.raw["item"]["lcraft-charger"].order = "e2"
+  if not data.raw["battery-equipment"]["laserrifle-charger"] then
+    data:extend({
+      {
+        type = "item",
+        name = "lcraft-charger",
+        icon = HCGRAPHICS .. "icons/equipment_lcraft_charger_icon.png",
+        icon_size = 256,
+        flags = {},
+        place_as_equipment_result = "lcraft-charger",
+        subgroup = "equipment",
+        order = "e[robotics]-a[personal-roboport-equipment]",
+        stack_size = 20
+      },
+      {
+        type = "recipe",
+        name = "lcraft-charger",
+        enabled = false,
+        energy_required = 10,
+        ingredients = {
+          {type="item", name="processing-unit", amount=25},
+          {type="item", name="energy-shield-mk2-equipment", amount=5},
+          {type="item", name="ehvt-equipment", amount=2}
+        },
+        results = {{type="item", name="lcraft-charger", amount=1}}
+      },
+    })
+    if mods["SchallTransportGroup"] then
+      data.raw["item"]["lcraft-charger"].subgroup = "vehicle-equipment"
+      data.raw["item"]["lcraft-charger"].order = "e2"
+    end
   end
 end
 
@@ -154,7 +171,7 @@ if electriccraft_equipment_activated then
       icon_size = 64,
       subgroup = subgroup_hovercrafts_ehvt,
       order = "d2",
-      placed_as_equipment_result = "ehvt-equipment",
+      place_as_equipment_result = "ehvt-equipment",
       stack_size = 10
     },
     {

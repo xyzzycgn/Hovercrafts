@@ -1,4 +1,44 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.4
+Date: 2024-11-28
+  Bugfixes:
+    - Fixed mod not loading when Laser Tank's electric engines option is disabled
+---------------------------------------------------------------------------------------------------
+Version: 2.0.3
+Date: 2024-11-22
+  Features:
+    - Hovercrafts now have logistics requests
+    - Hovercrafts now allow remote driving
+    - Hovercrafts now have an equipment grid by default
+  Bugfixes:
+    - Fixed crash when moving over uncharted chunks in remote view
+---------------------------------------------------------------------------------------------------
+Version: 2.0.2
+Date: 2024-11-21
+  Info:
+    - Update by OwnlyMe
+  Bugfixes:
+    - Fixed another crash when flying a rocket
+
+---------------------------------------------------------------------------------------------------
+Version: 2.0.1
+Date: 2024-11-21
+  Info:
+    - Update by OwnlyMe
+  Bugfixes:
+    - Fixed a crash when flying a rocket
+
+---------------------------------------------------------------------------------------------------
+Version: 2.0.0
+Date: 2024-11-21
+  Info:
+    - Update by OwnlyMe
+  Changes:
+    - Made compatible with 2.0 space age
+    - New graphic for the laser charger which now has the dimensions 2x1 and can only be placed into hovercrafts
+    - Now uses the laser charger from laser tanks if that's installed
+    - Made the electric motor loop seamless and changed sampling rate to fix audio crackling
+---------------------------------------------------------------------------------------------------
 Version: 1.2.2
 Date: 2022-07-30
   Info:
