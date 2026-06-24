@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.5
+Date: 2026-06-25
+  Info:
+    - 1st release of this fork from Hovercrafts
+  Bugfixes:
+    - Fixed incompability with Krastorio 2 resp. Krastorio 2 Spaced Out due to wrong
+      named fuel_category
+  Changes:
+    - hide artificial prototypes (like water-splash-smoke-*) in factoriopedia
+    - if SPA is present, disallow placing hovercrafts on surfaces without proper atmospheric pressure
+---------------------------------------------------------------------------------------------------
 Version: 2.0.4
 Date: 2024-11-28
   Bugfixes:

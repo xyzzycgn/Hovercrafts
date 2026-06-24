@@ -1,0 +1,8 @@
+mod_info:
+  description_file: README.md
+  summary: Speed across land and water in your own personal hovercraft
+  title: Hovercrafts (reloaded)
+  attach_source_link: true
+  license: CC BY 4.0
+  category: content
+  tag: environment
