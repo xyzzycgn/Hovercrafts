@@ -14,6 +14,7 @@ collision.turret_animation = nil
 collision.light_animation = nil
 collision.light = nil
 collision.water_reflection = nil
+collision.hidden_in_factoriopedia = true
 data:extend({collision})
 
 local shadow_distance = 11
