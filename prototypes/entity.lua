@@ -1,7 +1,14 @@
+local surface_conditions = require('surface_conditions')
+
 local hcraft_remnants = table.deepcopy(data.raw.corpse["car-remnants"])
 hcraft_remnants.name = "hovercraft-remnants"
 hcraft_remnants.animation.layers[1].filename = HCGRAPHICS .. "entity/hovercraft/remnants/hovercraft-remnants.png"
 data:extend({hcraft_remnants})
+
+local function insert_surface_conditions()
+    return { surface_conditions.pressure(), }
+end
+
 
 -- collision box
 local collision = table.deepcopy(data.raw.car.car)
@@ -31,6 +38,7 @@ hcraft_entity.collision_box = {{-0.7, -0.9}, {0.7, 0.9}}
 hcraft_entity.effectivity = 1.3
 hcraft_entity.max_health = 500
 hcraft_entity.guns = {}
+hcraft_entity.surface_conditions = surface_conditions.check_existence_of_SPA(insert_surface_conditions)
 hcraft_entity.terrain_friction_modifier = 0
 hcraft_entity.energy_source.smoke = {
   {
