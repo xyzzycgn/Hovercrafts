@@ -54,10 +54,10 @@ if mods["IndustrialRevolution"] then
   end
 end
 
-if mods["Krastorio2"] then
+if mods["Krastorio2"] or mods["Krastorio2-spaced-out"] then
   for _, prototype in pairs(burner_hovercrafts) do
     if prototype and prototype.energy_source then
-      prototype.energy_source.fuel_categories = {"vehicle-fuel"}
+      prototype.energy_source.fuel_categories = {"kr-vehicle-fuel"}
       prototype.energy_source.burnt_inventory_size = 1
     end
   end
