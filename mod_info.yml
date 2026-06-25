@@ -5,4 +5,6 @@ mod_info:
   attach_source_link: true
   license: CC BY 4.0
   category: content
-  tag: environment
+  tags:
+    - combat
+    - transportation
