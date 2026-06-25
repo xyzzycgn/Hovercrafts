@@ -1,19 +1,27 @@
+local surface_conditions = require('surface_conditions')
+
 local hcraft_remnants = table.deepcopy(data.raw.corpse["car-remnants"])
 hcraft_remnants.name = "hovercraft-remnants"
 hcraft_remnants.animation.layers[1].filename = HCGRAPHICS .. "entity/hovercraft/remnants/hovercraft-remnants.png"
 data:extend({hcraft_remnants})
+
+local function insert_surface_conditions()
+    return { surface_conditions.pressure(), }
+end
+
 
 -- collision box
 local collision = table.deepcopy(data.raw.car.car)
 collision.name = "hovercraft-collision"
 collision.order = "hovercraft-collision"
 collision.collision_box = {{-1.5, -1.5}, {1.5, 1.5}}
-collision.collision_mask = { layers = {player = true} }  -- Will be replaced by custom collision layer in data-final-fixes
+collision.collision_mask = {layers={is_object=true, train=true, car=true}}
 collision.animation = {filename = "__core__/graphics/empty.png", size = 1, direction_count = 1}
 collision.turret_animation = nil
 collision.light_animation = nil
 collision.light = nil
 collision.water_reflection = nil
+collision.hidden_in_factoriopedia = true
 data:extend({collision})
 
 local shadow_distance = 11
@@ -23,14 +31,25 @@ hcraft_entity.name = "hovercraft"
 hcraft_entity.icon = HCGRAPHICS .. "icons/hovercraft_icon.png"
 hcraft_entity.icon_size = 64
 hcraft_entity.corpse = "hovercraft-remnants"
-hcraft_entity.braking_power = "1200kW"
+hcraft_entity.braking_power = settings.startup["hovercraft-drifting"].value == "new" and "1kW" or "1200kW"
 hcraft_entity.consumption = "250kW"
 hcraft_entity.selection_box = {{-1, -1.2}, {1, 1.2}}
 hcraft_entity.collision_box = {{-0.7, -0.9}, {0.7, 0.9}}
 hcraft_entity.effectivity = 1.3
 hcraft_entity.max_health = 500
 hcraft_entity.guns = {}
+hcraft_entity.surface_conditions = surface_conditions.check_existence_of_SPA(insert_surface_conditions)
 hcraft_entity.terrain_friction_modifier = 0
+hcraft_entity.energy_source.smoke = {
+  {
+    name = "car-smoke",
+    deviation = {0.25, 0.25},
+    frequency = 200,
+    position = {0, 0.98},
+    starting_frame = 0,
+    starting_frame_deviation = 60
+  }
+}
 hcraft_entity.rotation_speed = 0.0060
 hcraft_entity.tank_driving = true
 hcraft_entity.weight = 2500
@@ -39,7 +58,7 @@ hcraft_entity.has_belt_immunity = true
 hcraft_entity.allow_remote_driving = true
 hcraft_entity.equipment_grid = "hovercraft-equipment"
 hcraft_entity.trash_inventory_size = 20
-hcraft_entity.collision_mask = { layers = {player = true} }  -- Will be replaced by custom collision layer in data-final-fixes
+hcraft_entity.collision_mask = {layers={is_object=true, train=true, car=true}}
 hcraft_entity.resistances = {
   { type = "fire",      decrease = 7.5, percent = 30 },
   { type = "physical",  decrease = 7.5, percent = 30 },
@@ -113,7 +132,7 @@ if missile_hovercraft_activated then
   -- Mcraft entity
   local mcraft_entity = table.deepcopy(data.raw.car["hovercraft"])
   mcraft_entity.name = "missile-hovercraft"
-  mcraft_entity.braking_power = "1500kW"
+  mcraft_entity.braking_power = settings.startup["hovercraft-drifting"].value == "new" and "1kW" or "1500kW"
   mcraft_entity.consumption = "450kW"
   mcraft_entity.effectivity = 1.1
   mcraft_entity.max_health = 1200
@@ -134,8 +153,17 @@ if missile_hovercraft_activated then
   mcraft_entity.energy_source = {
     type = "burner",
     fuel_categories = {"chemical"},
-    effectivity = 1,
     fuel_inventory_size = 2,
+    smoke = {
+      {
+        name = "car-smoke",
+        deviation = {0.25, 0.25},
+        frequency = 200,
+        position = {0, 0.98},
+        starting_frame = 0,
+        starting_frame_deviation = 60
+      }
+    }
   }
   mcraft_entity.guns = {"hovercraft-missile-turret"}
   mcraft_entity.turret_animation = {
@@ -166,7 +194,6 @@ if missile_hovercraft_activated then
   mcraft_gun.name = "hovercraft-missile-turret"
   mcraft_gun.icon = HCGRAPHICS .. "icons/hovercraft-missile-turret-icon.png"
   mcraft_gun.icon_size = 64
-  mcraft_gun.icon_mipmaps = 0
   mcraft_gun.order = "d[rocket-launcher]"
   mcraft_gun.attack_parameters = {
     type = "projectile",
@@ -192,9 +219,9 @@ if electric_hovercraft_activated then
   ecraft_entity.name = "electric-hovercraft"
   ecraft_entity.icon = HCGRAPHICS .. "icons/hovercraft_ecraft_icon.png"
   ecraft_entity.icon_size = 64
-  ecraft_entity.braking_power = "1000kW"
+  ecraft_entity.braking_power = settings.startup["hovercraft-drifting"].value == "new" and "1kW" or "1000kW"
   ecraft_entity.consumption = "6MW"
-  ecraft_entity.effectivity = 0.11
+  ecraft_entity.effectivity = settings.startup["hovercraft-drifting"].value == "new" and 0.12 or 0.11
   ecraft_entity.max_health = 250
   ecraft_entity.rotation_speed = 0.0075
   ecraft_entity.weight = 1500
@@ -212,12 +239,14 @@ if electric_hovercraft_activated then
       filename = "__Hovercrafts__/audio/vehicle-motor.ogg",
       volume = 0.5
     },
-    match_speed_to_activity = false
+    match_speed_to_activity = false,
+    fade_in_ticks = 15,
+    fade_out_ticks = 15,
   }
   ecraft_entity.energy_source =
   {
     type = "burner",
-    effectivity = nil,
+    fuel_categories = {"electrical"},
     fuel_inventory_size = 0,
   }
   data:extend({ecraft_entity})
@@ -229,7 +258,7 @@ if laser_hovercraft_activated then
   lcraft_entity.name = "laser-hovercraft"
   lcraft_entity.icon = HCGRAPHICS .. "icons/hovercraft_lcraft_icon.png"
   lcraft_entity.icon_size = 64
-  lcraft_entity.effectivity = 0.20
+  lcraft_entity.effectivity = 0.2
   lcraft_entity.max_health = 800
   lcraft_entity.rotation_speed = 0.0050
   lcraft_entity.weight = 7500
@@ -240,10 +269,10 @@ if laser_hovercraft_activated then
   lcraft_entity.energy_source =
   {
     type = "burner",
-    effectivity = nil,
+    fuel_categories = {"electrical"},
     fuel_inventory_size = 0,
   }
-  lcraft_entity.braking_power = "1250kW"
+  lcraft_entity.braking_power = settings.startup["hovercraft-drifting"].value == "new" and "1kW" or "1250kW"
   lcraft_entity.consumption = "8MW"
   lcraft_entity.sound_no_fuel = {
     {
@@ -256,7 +285,9 @@ if laser_hovercraft_activated then
       filename = "__Hovercrafts__/audio/vehicle-motor.ogg",
       volume = 0.5
     },
-    match_speed_to_activity = false
+    match_speed_to_activity = false,
+    fade_in_ticks = 15,
+    fade_out_ticks = 15,
   }
   lcraft_entity.resistances = {
     { type = "fire", decrease = 7.5, percent = 30 },

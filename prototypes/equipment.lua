@@ -21,7 +21,9 @@ end
 if mods["vtk-armor-plating"] then
   table.insert(data.raw["equipment-grid"]["hovercraft-equipment"].equipment_categories, "vtk-armor-plating")
 end
-
+--if data.raw["equipment-category"]["electric-vehicles-equipment"] then  --too weak for hovercrafts?
+--  table.insert(data.raw["equipment-grid"]["hcraft-equipment"].equipment_categories, "electric-vehicles-equipment")
+--end
 ----------------------------------------------------------------------------------------------------------------------------------
 if missile_hovercraft_activated then
   local mgridw, mgridh = string.match(settings.startup["missile-hovercraft-grid-size"].value, "(%d+)x(%d+)")
@@ -43,6 +45,9 @@ if missile_hovercraft_activated then
   if mods["vtk-armor-plating"] then
     table.insert(data.raw["equipment-grid"]["missile-hovercraft-equipment"].equipment_categories, "vtk-armor-plating")
   end
+  --if data.raw["equipment-category"]["electric-vehicles-equipment"] then  --too weak for hovercrafts?
+  --  table.insert(data.raw["equipment-grid"]["mcraft-equipment"].equipment_categories, "electric-vehicles-equipment")
+  --end
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------
@@ -65,6 +70,9 @@ if electric_hovercraft_activated then
   if mods["vtk-armor-plating"] then
     table.insert(data.raw["equipment-grid"]["ecraft-equipment"].equipment_categories, "vtk-armor-plating")
   end
+  --if data.raw["equipment-category"]["electric-vehicles-equipment"] then  --too weak for hovercrafts?
+  --  table.insert(data.raw["equipment-grid"]["ecraft-equipment"].equipment_categories, "electric-vehicles-equipment")
+  --end
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------
@@ -87,43 +95,52 @@ if laser_hovercraft_activated then
   if mods["vtk-armor-plating"] then
     table.insert(data.raw["equipment-grid"]["lcraft-equipment"].equipment_categories, "vtk-armor-plating")
   end
+  --if data.raw["equipment-category"]["electric-vehicles-equipment"] then --too weak for hovercrafts?
+  --  table.insert(data.raw["equipment-grid"]["lcraft-equipment"].equipment_categories, "electric-vehicles-equipment")
+  --end
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------EQUIPEMENT------------------------------------------------------------------
+------------------------------------------------------EQUIPMENT-------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------
 
 if laser_hovercraft_activated then
-  data:extend({
-    {
-      type = "battery-equipment",
-      name = "lcraft-charger",
-      sprite = {
-        filename = HCGRAPHICS .. "equipment/equipment-lcraft-charger.png",
-        width = 64,
-        height = 64,
-        scale = 0.5,
-      },
-      shape = {
-        width = 1,
-        height = 1,
-        type = "full",
-      },
-      energy_source = {
-        type = "electric",
-        buffer_capacity = "2250KJ",
-        input_flow_limit = "750KW",
-        drain = "0W",
-        output_flow_limit = "0W",
-        usage_priority = "primary-input"
-      },
-      categories = {"armor"},
-      order = "b-i-c"
-    }
-  })
+  if not data.raw["battery-equipment"]["laserrifle-charger"] then
+    data:extend({
+      {
+        type = "battery-equipment",
+        name = "lcraft-charger",
+        sprite = {
+          filename = HCGRAPHICS .. "equipment/equipment-lcraft-charger.png",
+          width = 432,
+          height = 216,
+          scale = 0.19,
+          },
+        shape = {
+          width = 2,
+          height = 1,
+          type = "full",
+        },
+        energy_source = {
+          type = "electric",
+          buffer_capacity = "2250kJ",
+          input_flow_limit = "750kW",
+          drain = "0W",
+          output_flow_limit = "0W",
+          usage_priority = "primary-input"
+        },
+        categories = {"electric-hovercraft-equipment"},
+        order = "b-i-c"
+      }
+    })
 
-  if mods["bobvehicleequipment"] then
-    data.raw["battery-equipment"]["lcraft-charger"].categories = {"lcraft-charger"}
+    if mods["bobvehicleequipment"] then
+      data.raw["battery-equipment"]["lcraft-charger"].categories = {"lcraft-charger"}
+    end
+  else
+	  if mods["bobvehicleequipment"] then --- ??? maybe unnecessary
+	    table.insert(data.raw["battery-equipment"]["laserrifle-charger"].categories, "lcraft-charger")
+    end
   end
 end
 

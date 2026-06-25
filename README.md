@@ -1,4 +1,7 @@
-#Hovercrafts
+#Hovercrafts (reloaded)
+
+This mod is intended as an inplace replacement for [Hovercrafts](https://mods.factorio.com/mod/Hovercrafts/)
+which seems unmaintained for a while. All credits belong to the former authors (see below)
 
 |   |  Max speed | Health  |  Fuel |  Weapon |  Equipment grid |
 |---|---|---|---|---|---|
@@ -7,7 +10,7 @@
 |  Electric Hovercraft |  216 |  250 |  Electric |  ❌ |  8x8 |
 |  Laser Hovercraft |  151 |  800 |  Electric |  Laser |  10x10 |
 
-To access Electric and Laser hovercraft, you will need [Laser Tanks Updated](https://mods.factorio.com/mod/laser_tanks_updated)
+To access Electric and Laser hovercraft, you will need [Laser Tanks](https://mods.factorio.com/mod/laser_tanks)
 
 #Recommended
  - [AAI Programmable Vehicles](https://mods.factorio.com/mod/aai-programmable-vehicles) | Standard hovercraft can be used as a hauler. (Thanks, [Earendel](https://mods.factorio.com/user/Earendel))

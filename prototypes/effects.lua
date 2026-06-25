@@ -20,6 +20,7 @@ for i=1,10 do
     render_layer = "decorative",
     show_when_smoke_off = true,
     deviation = {0, 0},
+    hidden_in_factoriopedia = true,
     start_scale = 1,
     end_scale = 1,
     animation = {
@@ -56,6 +57,7 @@ if not data.raw["smoke-with-trigger"]["water-ripple1-smoke"] then
       render_layer = "decals",
       show_when_smoke_off = true,
       deviation = {0, 0},
+      hidden_in_factoriopedia = true,
       animation = {
         filename = HCGRAPHICS .. "/entity/effects/ripple" .. i .. ".png",
         priority = "extra-high",

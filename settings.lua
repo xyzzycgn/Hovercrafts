@@ -18,10 +18,12 @@ local grid_dimensions = {
 
 data:extend({
   {
-    type = "bool-setting",
+    type = "string-setting",
     name = "hovercraft-drifting",
-    setting_type = "runtime-global",
-    default_value = true
+    setting_type = "startup",
+	  allowed_values = {"off", "old", "new"},
+    default_value = "new",
+	  order = "a",
   },
   {
     type = "bool-setting",
