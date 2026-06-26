@@ -229,14 +229,14 @@ if electric_hovercraft_activated then
   ecraft_entity.equipment_grid = "ecraft-equipment"
   ecraft_entity.sound_no_fuel = {
     {
-      filename = "__Hovercrafts__/audio/no-energy.ogg",
+      filename = "__Hovercrafts-reloaded__/audio/no-energy.ogg",
       volume = 0.4
     }
   }
   ecraft_entity.working_sound = {
     sound =
     {
-      filename = "__Hovercrafts__/audio/vehicle-motor.ogg",
+      filename = "__Hovercrafts-reloaded__/audio/vehicle-motor.ogg",
       volume = 0.5
     },
     match_speed_to_activity = false,
@@ -276,13 +276,13 @@ if laser_hovercraft_activated then
   lcraft_entity.consumption = "8MW"
   lcraft_entity.sound_no_fuel = {
     {
-      filename = "__Hovercrafts__/audio/no-energy.ogg",
+      filename = "__Hovercrafts-reloaded__/audio/no-energy.ogg",
       volume = 0.4
     }
   }
   lcraft_entity.working_sound = {
     sound = {
-      filename = "__Hovercrafts__/audio/vehicle-motor.ogg",
+      filename = "__Hovercrafts-reloaded__/audio/vehicle-motor.ogg",
       volume = 0.5
     },
     match_speed_to_activity = false,
