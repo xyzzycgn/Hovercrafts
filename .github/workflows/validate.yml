@@ -4,8 +4,7 @@ on:
   pull_request:
     types: [opened, reopened, synchronize]
     branches:
-      - master
-      - main
+      - V2.1
 
 jobs:
   validate-mod:
@@ -13,6 +12,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
+        with:
+          ref: V2.1
 
       - name: Validate Mod
         uses: xyzzycgn/factorio-mod-uploader-action@2.0.7
