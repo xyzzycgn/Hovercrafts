@@ -278,6 +278,34 @@ script.on_event(defines.events.on_entity_died, function(event)
   end
 end)
 
+
+-- fix for https://mods.factorio.com/mod/Hovercrafts/discussion/67c5d9c8de626894a9aa15be
+if script.active_mods["VehicleWagon2"] then
+    script.on_event(defines.events.script_raised_teleported, function(event)
+        local ev_entity = event.entity
+        if not (ev_entity and ev_entity.valid) then
+            return
+        end
+        local unit_number = ev_entity.unit_number
+
+        local hovercraft = storage.hovercrafts[unit_number]
+        if hovercraft then
+            -- hovercraft has been transported with vehicle wagon and was unloaded
+            hovercraft.position = ev_entity.position
+            hovercraft.orientation = ev_entity.orientation
+
+            hovercraft.last_safe_pos = ev_entity.position
+            hovercraft.last_safe_orientation = ev_entity.orientation
+
+            hovercraft.last_pos = ev_entity.position
+            hovercraft.last_orientation = ev_entity.orientation
+
+            hovercraft.last_speed = 0
+            hovercraft.drift = { x = 0, y = 0 }
+        end
+    end)
+end
+
 function max_range(pos1,pos2,range)
   local distance = distance(pos1,pos2)
   pos2.x = pos2.x-pos1.x
