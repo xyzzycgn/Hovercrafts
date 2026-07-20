@@ -1,7 +1,10 @@
 #Hovercrafts (reloaded)
 
-This mod is intended as an inplace replacement for [Hovercrafts](https://mods.factorio.com/mod/Hovercrafts/)
-which seems unmaintained for a while. All credits belong to the former authors (see below)
+This mod was intended as an inplace replacement for [Hovercrafts](https://mods.factorio.com/mod/Hovercrafts)
+which seemed unmaintained for a while. As the changes made to this mod meanwhile have been integrated/reimplemented, 
+there is no longer a need for this, so I've decided to retire it.
+
+All credits belong to the former authors (see below)
 
 |   |  Max speed | Health  |  Fuel |  Weapon |  Equipment grid |
 |---|---|---|---|---|---|
